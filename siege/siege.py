@@ -8,7 +8,10 @@ import pandas as pd
 
 
 def test():
+    t0 = time.time()
     siege_statistics('2022-06-02 21:00:00')
+    cost = time.time() - t0
+    print('cost: {}s'.format(cost))
 
 
 def siege_statistics(start_time):
@@ -50,7 +53,6 @@ def siege_statistics(start_time):
             rows = 0
             ocr_img = image.images_concat(ocr_blocks, 2)
             txt = ocr.get_text(ocr_img)
-            ocr_img.save('./images/tmp/3.png')
             ocr_blocks = []
             time_over = False
             for i in range(10):

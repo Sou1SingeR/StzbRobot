@@ -1,5 +1,4 @@
 venv*
-images/*
 excel/*
 .idea
 __pycache__
