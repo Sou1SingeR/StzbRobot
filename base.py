@@ -4,6 +4,9 @@ from PIL import Image
 from aip import AipOcr
 
 
+pyautogui.FAILSAFE = False
+
+
 def get_text(image):
     # 百度AI SDK配置
     APP_ID = '15593107'
@@ -33,7 +36,7 @@ def get_text(image):
 
 def point_region(region):
     pyautogui.moveTo(region[0], region[1])
-    time.sleep(0.5)
+    time.sleep(2)
     pyautogui.moveTo(region[0] + region[2], region[1] + region[3])
 
 
