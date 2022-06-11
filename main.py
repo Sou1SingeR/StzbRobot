@@ -1,5 +1,6 @@
 from siege import siege
 
 
-siege.test()
+# siege.test()
 
+siege.run()

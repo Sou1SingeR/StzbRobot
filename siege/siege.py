@@ -1,23 +1,39 @@
 from utils import ocr
 from utils import image
 from utils import operation
-from collections import Counter
 import pyautogui
 import time
 import pandas as pd
 
 
 def test():
+    # ocr 区域相对于标志物的偏移量、宽高
+    name_offset = (-790, -5, 175, 32)
+    time_offset = (-225, -53, 220, 32)
+    report_marker = pyautogui.locateOnScreen('./images/siege/report_marker.png', grayscale=False, confidence=.95)
+    name_pos = (report_marker.left + name_offset[0], report_marker.top + name_offset[1], name_offset[2], name_offset[3])
+    name_img = pyautogui.screenshot(region=name_pos)
+    time_pos = (report_marker.left + time_offset[0], report_marker.top + time_offset[1], time_offset[2], time_offset[3])
+    time_img = pyautogui.screenshot(region=time_pos)
+    ocr_blocks = list()
+    ocr_blocks.append(name_img)
+    ocr_blocks.append(time_img)
+    ocr_img = image.images_concat(ocr_blocks, 2)
+    ocr_img.save('./images/siege/test.png')
+
+
+def run():
+    # 雷电模拟器
     t0 = time.time()
-    siege_statistics('2022-06-02 21:00:00')
+    siege_statistics('2022-06-10 21:00:00')
     cost = time.time() - t0
     print('cost: {}s'.format(cost))
 
 
 def siege_statistics(start_time):
     # ocr 区域相对于标志物的偏移量、宽高
-    name_offset = (-770, -7, 175, 30)
-    time_offset = (-235, -55, 215, 30)
+    name_offset = (-790, -2, 175, 32)
+    time_offset = (-225, -50, 220, 32)
     # 最小时间
     time_min = time.strptime(start_time, '%Y-%m-%d %H:%M:%S')
     scroll_start_offset = (600, 600)
@@ -56,6 +72,14 @@ def siege_statistics(start_time):
             ocr_blocks = []
             time_over = False
             for i in range(10):
+                if txt[i * 2].startswith('202'):
+                    # 丢掉了一个 name
+                    txt.insert(i * 2, 'Unknown')
+                    err.append('No valid name')
+                    err_name.append(txt[i * 2])
+                    err_time.append(txt[i * 2 + 1])
+                    continue
+
                 t_txt = txt[i * 2 + 1].replace(' ', '')
                 try:
                     t = time.strptime(t_txt, '%Y/%m/%d%H:%M:%S')
@@ -64,7 +88,7 @@ def siege_statistics(start_time):
                     err_name.append(txt[i * 2])
                     err_time.append(txt[i * 2 + 1])
                     continue
-                if t > time_min:
+                if t >= time_min:
                     user_list.append(txt[i * 2])
                 else:
                     time_over = True
