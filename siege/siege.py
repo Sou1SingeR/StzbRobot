@@ -25,7 +25,7 @@ def test():
 def run():
     # 雷电模拟器
     t0 = time.time()
-    siege_statistics('2022-06-10 21:00:00')
+    siege_statistics('2022-06-12 20:00:00')
     cost = time.time() - t0
     print('cost: {}s'.format(cost))
 

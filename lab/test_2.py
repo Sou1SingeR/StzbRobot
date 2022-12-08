@@ -9,7 +9,7 @@ import random
 from scipy.special import comb, perm
 
 # 率土之滨非欧玩家比例
-star_5_rate = 0.1
+star_5_rate = 0.12
 try_count = 20
 ratio_0 = 0
 sum = 1

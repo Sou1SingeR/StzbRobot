@@ -9,14 +9,28 @@ import random
 from scipy.special import comb, perm
 
 
-base = 36
-sum = 0
-for i in range(1, 10):
-    print(i + 1)
-    exp = base * i * i
-    sum += exp
-    print(exp)
-    print(sum)
-    print('-----------')
+candidates = [
+    '明皇',
+    '纹龙',
+    '劉備',
+    '情话诉给山鬼',
+    '伏辰',
+    '凛鹰天下',
+    '长安',
+    '唐离兮',
+    '劍丨淡月',
+    '染歌',
+    '扶苏',
+    '沐丨哀',
+    'lin',
+    # '沐丨丰登',
+    # '帝临九天',
+]
 
-print(432/204)
+res = []
+
+for i in range(len(candidates)):
+    res.append(random.choice(candidates))
+    candidates.remove(res[i])
+
+print(res)
