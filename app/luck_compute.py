@@ -1,12 +1,5 @@
-import pendulum
-import pandas as pd
-import time
-from PIL import Image
-import pyautogui
-import base
-import sys
 import random
-from scipy.special import comb, perm
+from scipy.special import comb
 
 # 率土之滨非欧玩家比例
 star_5_rate = 0.12
