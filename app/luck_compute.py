@@ -20,7 +20,7 @@ for i in range(try_count + 1):
 
 print('\n\n')
 
-star_5_rate = 0.15
+star_5_rate = 0.12
 try_count = 10
 sum = 1
 for i in range(try_count + 1):
