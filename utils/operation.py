@@ -4,7 +4,7 @@ import pyperclip
 from time import sleep
 
 
-def robust_operation(operation, name, content=None, delay=1, interval=1, try_times=1, confidence=0.9, check=None, left=None, top=None, duration=None, mode=None):
+def robust_operation(operation, name, content=None, delay=1, interval=1, try_times=1, confidence=0.9, check=None, operation_params=None):
     """
     等待 delay 秒后，反复寻找 img 并依据中心坐标进行操作，每次间隔 interval 秒，最多尝试 n 次
     """
@@ -15,9 +15,20 @@ def robust_operation(operation, name, content=None, delay=1, interval=1, try_tim
             if operation == 'click':
                 x, y = pyautogui.locateCenterOnScreen(content, confidence=confidence)
                 pyautogui.click(x, y)
+            elif operation == 'conditional_click':
+                try:
+                    print(operation)
+                    print(operation[0])
+                    pyautogui.locateCenterOnScreen(operation_params, confidence=0.9)
+                    x, y = pyautogui.locateCenterOnScreen(content, confidence=confidence)
+                    pyautogui.click(x, y)
+                except Exception as e:
+                    print(e)
+                    pass
             elif operation == 'scroll':
                 x, y = pyautogui.locateCenterOnScreen(content, confidence=confidence)
                 pyautogui.moveTo(x, y)
+                left, top, duration, mode = operation_params
                 pyautogui.drag(left, top, duration, mode, button='left')
             elif operation == 'write':
                 write_keys = ['num' + ch if '0' <= ch <= '9' else ch for ch in content]
