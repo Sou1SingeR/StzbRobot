@@ -1,7 +1,7 @@
 from PIL import Image
 
 
-def images_concat(images, cols):
+def images_concat(images, cols=2):
     assert len(images) % cols == 0
     col_interval = 100
     row_interval = 50
