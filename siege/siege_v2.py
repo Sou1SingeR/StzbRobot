@@ -84,8 +84,8 @@ class SiegeCrawler:
             stat_dict[name] = stat_dict.get(name, 0) + 1
 
     def _save_dict_to_excel(self, stat_dict):
-        df = pd.DataFrame({'游戏名': list(stat_dict.keys()), '攻击次数': list(stat_dict.values())})
-        df = df.sort_values(by=['攻击次数'], ascending=False)
+        df = pd.DataFrame({'游戏名': list(stat_dict.keys()), '出征次数': list(stat_dict.values())})
+        df = df.sort_values(by=['出征次数'], ascending=False)
         df.to_excel(self._data_excel_path, index=False)
 
     def test(self):
